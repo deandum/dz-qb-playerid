@@ -5,18 +5,18 @@ local hold = 2
 
 
 -- functions
-local function drawText3D(x, y, z, text)
-	SetTextScale(0.35, 0.35)
-    SetTextFont(4)
+local function drawText3D(x, y, z, text, r, g, b)
+	SetTextScale(0.5, 0.5)
+    SetTextFont(5)
     SetTextProportional(1)
-    SetTextColour(255, 255, 255, 215)
+    SetTextColour(r, g, b, 255)
     SetTextEntry("STRING")
     SetTextCentre(true)
     AddTextComponentString(text)
     SetDrawOrigin(x, y, z, 0)
     DrawText(0.0, 0.0)
-    local factor = (string.len(text)) / 370
-    DrawRect(0.0, 0.0 + 0.0125, 0.017 + factor, 0.03, 0, 0, 0, 75)
+    local factor = (string.len(text)) / 450
+    DrawRect(0.0, 0.0 + 0.018, 0.01 + factor, 0.03, 0, 0, 0, 75)
     ClearDrawOrigin()
 end
 
@@ -57,7 +57,7 @@ CreateThread(function()
         Wait(1000)
     end
 
-    local playerPed = PlayerPedId()
+    local ped = PlayerPedId()
 
     while true do
         if IsControlReleased(0, Config.ControlID) and displayingIDs then
@@ -84,7 +84,13 @@ CreateThread(function()
                 local playerID = GetPlayerServerId(player)
                 local playerPed = GetPlayerPed(player)
                 local playerCoords = GetEntityCoords(playerPed)
-                drawText3D(playerCoords.x, playerCoords.y, playerCoords.z + 1.0, '('..playerID..')')
+                if NetworkIsPlayerTalking(player) then
+                    drawText3D(playerCoords.x, playerCoords.y, playerCoords.z + 1.0, playerID, 255, 0, 0)
+                elseif ped == playerPed then
+                    drawText3D(playerCoords.x, playerCoords.y, playerCoords.z + 1.0, playerID, 0, 255, 0)
+                else
+                    drawText3D(playerCoords.x, playerCoords.y, playerCoords.z + 1.0, playerID, 255, 255, 255)
+                end
             end
         end
 
