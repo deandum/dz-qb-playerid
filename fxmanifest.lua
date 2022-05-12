@@ -3,7 +3,7 @@ game 'gta5'
 
 description 'dz-qb-playerid'
 author 'Dean Zaral <https://github.com/deandum>'
-version '1.0.0'
+version '1.1.0'
 
 shared_scripts {
   'config.lua'

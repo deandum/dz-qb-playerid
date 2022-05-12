@@ -50,25 +50,23 @@ end
 
 -- threads
 CreateThread(function()
-    Wait(500)
-
     while not LocalPlayer.state.isLoggedIn do
         -- do nothing
         Wait(1000)
     end
 
-    local ped = PlayerPedId()
-
     while true do
+        local ped = PlayerPedId()
+
         if IsControlReleased(0, Config.ControlID) and displayingIDs then
             displayingIDs = false
             hold = 2
-            TriggerEvent('dz-qb-holdmap:client:ToggleMap')
+            -- TriggerEvent('dz-qb-holdmap:client:ToggleMap') -- uncomment this if you are using the holdmap resource
         end
 
         if IsControlPressed(0, Config.ControlID) and hold <= 0 and not displayingIDs then
             displayingIDs = true
-            TriggerEvent('dz-qb-holdmap:client:ToggleMap')
+            -- TriggerEvent('dz-qb-holdmap:client:ToggleMap') -- uncomment this if you are using the holdmap resource
         end
 
         if IsControlPressed(0, Config.ControlID) then
